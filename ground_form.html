@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="bg-dark text-white">
+      <div class="sidebar-header p-3">
+        <h3 class="fs-4">Dashboard Pro</h3>
+      </div>
+      <ul class="list-unstyled components p-3">
+        <li class="active">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <i class="bi bi-speedometer2 me-2"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#userSubmenu" data-bs-toggle="collapse"
+            class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <i class="bi bi-person me-2"></i>
+            <span>User Management</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul class="collapse list-unstyled" id="userSubmenu">
+            <li>
+              <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Profile</a>
+            </li>
+            <li>
+              <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Settings</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#tableSubmenu" data-bs-toggle="collapse"
+            class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <i class="bi bi-table me-2"></i>
+            <span>Tables</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul class="collapse list-unstyled" id="tableSubmenu">
+            <li>
+              <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Basic Table</a>
+            </li>
+            <li>
+              <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Data Table</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content" class="bg-form-page">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button type="button" id="sidebarCollapse" class="btn btn-dark">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="ms-auto">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                  data-bs-toggle="dropdown">
+                  <i class="bi bi-person-circle"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Dashboard Content -->
+      <div class="container-fluid py-4 px-3">
+
+
+        <div class="row justify-content-center">
+          <div class="col-lg-11">
+            <div class="card shadow-sm">
+              <div class="card-header text-white bg-form-title">
+                <h4 class="card-title">Create Ground Master</h4>
+              </div>
+              <div class="card-body">
+
+                <form method="post" id="contactForm">
+                  <div class="row g-3">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="org_id" name="org_id" class="form-control form-control-sm" readonly />
+                        <label class="form-label" for="org_id">Org ID</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="ground_name" name="ground_name" class="form-control form-control-sm" />
+                        <label class="form-label" for="ground_name">Ground Name</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="google_location" name="google_location"
+                          class="form-control form-control-sm" />
+                        <label class="form-label" for="google_location">Google Location</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="number" id="year_of_construction" name="year_of_construction" pattern="[0-9]{4}"
+                          class="form-control form-control-sm" />
+                        <label class="form-label" for="year_of_construction">Year of Construction</label>
+                      </div>
+
+                      <div id="phoneNumbers" class="mb-3">
+                        <label class="form-label" for="phone0">Phone Number:</label>
+                        <div class="d-flex align-items-center mb-2">
+                          <input class="form-control form-control-sm me-2" type="tel" id="phone0" name="phone[]" required />
+                          <button type="button" class="btn btn-sm btn-outline-danger" onclick="removePhoneField(this)"
+                            disabled>-</button>
+                        </div>
+                        <button type="button" id="addPhoneBtn" class="btn btn-sm btn-primary">Add Another
+                          Number</button>
+                      </div>
+
+                      <input type="hidden" id="allPhoneNumbers" name="phone_numbers" value="" />
+                      <input type="hidden" id="state_code" name="state_code" />
+
+                      <div class="form-floating mb-3">
+                        <select class="form-select form-select-sm" id="state_name" name="state_name" required>
+                          <option value="">Select State</option>
+                          <!-- Loop through state_data here -->
+                        </select>
+                        <label for="state_name">State Name</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <select class="form-select form-select-sm" id="city_name" name="city_name" required>
+                          <option value="">Select City</option>
+                        </select>
+                        <label for="city_name">City Name</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="number" id="count_main_pitches" name="count_main_pitches"
+                          class="form-control form-control-sm" />
+                        <label class="form-label" for="count_main_pitches">No. of Main Pitches</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="number" id="count_practice_pitches" name="count_practice_pitches"
+                          class="form-control form-control-sm" />
+                        <label class="form-label" for="count_practice_pitches">No. of Practice Pitches</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="slop_ratio" name="slop_ratio" placeholder="1:100"
+                          pattern="[0-9]{1,5}:[0-9]{2,5}" class="form-control form-control-sm" required />
+                        <label class="form-label" for="slop_ratio">Slop Ratio</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="screen_size" name="screen_size" class="form-control form-control-sm" />
+                        <label class="form-label" for="screen_size">Size of Screen</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <select class="form-select form-select-sm" id="broadcast_video_analysis" name="broadcast_video_analysis">
+                          <option value="">Select Broadcast/Video Analysis</option>
+                          <option value="sand based">Permanent Stand</option>
+                          <option value="traditional">Straight</option>
+                          <option value="traditional">Runout</option>
+                        </select>
+                        <label for="broadcast_video_analysis">Broadcast/Video Analysis</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <select class="form-select form-select-sm" id="outfield_type" name="outfield_type">
+                          <option value="">Select Outfield</option>
+                          <option value="sand based">Sand Based</option>
+                          <option value="traditional">Traditional</option>
+                        </select>
+                        <label for="outfield_type">Outfield</label>
+                      </div>
+
+                      <!-- Checkboxes -->
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_side_screen" name="is_side_screen" />
+                        <label class="form-check-label" for="is_side_screen">Is Side Screen</label>
+                      </div>
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_broadcasting_facility"
+                          name="is_broadcasting_facility" />
+                        <label class="form-check-label" for="is_broadcasting_facility">Is Broadcasting Facility</label>
+                      </div>
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_irrigation_pitches"
+                          name="is_irrigation_pitches" />
+                        <label class="form-check-label" for="is_irrigation_pitches">Is Irrigation Pitches</label>
+                      </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <textarea class="form-control form-control-sm" id="profile_of_outfield"
+                          name="profile_of_outfield"></textarea>
+                        <label class="form-label" for="profile_of_outfield">Profile of the Outfield</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-3">
+                        <input type="text" id="lawn_species" name="lawn_species" class="form-control form-control-sm"
+                          required />
+                        <label class="form-label" for="lawn_species">Lawn Species</label>
+                      </div>
+
+                      <!-- Additional checkboxes -->
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_drainage_system_available"
+                          name="is_drainage_system_available" />
+                        <label class="form-check-label" for="is_drainage_system_available">Is Drainage System
+                          Available</label>
+                      </div>
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_availability_of_water"
+                          name="is_availability_of_water" />
+                        <label class="form-check-label" for="is_availability_of_water">Is Water Source Available</label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <select class="form-select form-select-sm" id="water_source" name="water_source">
+                          <option value="">Select Water Source</option>
+                          <option value="wellorborewell">Well/Borewell</option>
+                          <option value="tanker">Tanker</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <label for="water_source">Water Source</label>
+                      </div>
+
+                      <!-- More inputs... (continue from original form similarly) -->
+
+                      <div data-mdb-input-init class="form-outline mb-2">
+                        <input type="number" class="form-control form-control-sm" id="storage_capacity_in_litres"
+                          name="storage_capacity_in_litres">
+                        <label for="storage_capacity_in_litres" class="form-label">Storage Capacity in Litres:</label>
+
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-2">
+                        <input type="number" class="form-control form-control-sm" id="count_pop_ups"
+                          name="count_pop_ups">
+                        <label for="count_pop_ups" class="form-label">Number of Pop Ups:</label>
+
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline mb-2">
+                        <input type="text" class="form-control form-control-sm" id="size_of_pumps" name="size_of_pumps">
+                        <label for="size_of_pumps" class="form-label">Size of Pumps:</label>
+
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_automation_if_any"
+                          name="is_automation_if_any">
+                        <label class="form-check-label" for="is_automation_if_any">Is Automation If Any</label>
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_ground_equipments"
+                          name="is_ground_equipments">
+                        <label class="form-check-label" for="is_ground_equipments">Is Ground Equipments</label>
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_maintenance_contract"
+                          name="is_maintenance_contract">
+                        <label class="form-check-label" for="is_maintenance_contract">Is Maintenance Contract</label>
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_maintenance_agency"
+                          name="is_maintenance_agency">
+                        <label class="form-check-label" for="is_maintenance_agency">Is Maintenance Agency</label>
+                      </div>
+
+                      <div class="mb-2">
+                        <label for="boundary_size_mtrs" class="form-label">Boundary Size (Meters):</label>
+                        <div class="row">
+                          <div class="col-lg-3 col-sm-12">
+                            <div data-mdb-input-init class="form-outline">
+
+                              <input type="text" class="form-control form-control-sm" id="boundary_size_mtrs-E"
+                                name="boundary_size_mtrs-E" placeholder="East side">
+                              <label class="form-label" for="boundary_size_mtrs-E">East</label>
+
+                            </div>
+                          </div>
+                          <div class="col-lg-3 col-sm-12">
+                            <div data-mdb-input-init class="form-outline">
+
+                              <input type="text" class="form-control form-control-sm" id="boundary_size_mtrs-W"
+                                name="boundary_size_mtrs-W" placeholder="West side">
+
+                              <label class="form-label" for="boundary_size_mtrs-W">West</label>
+                            </div>
+                          </div>
+                          <div class="col-lg-3 col-sm-12">
+                            <div data-mdb-input-init class="form-outline">
+
+                              <input type="text" class="form-control form-control-sm" id="boundary_size_mtrs-N"
+                                name="boundary_size_mtrs-N" placeholder="North side">
+                              <label class="form-label" for="boundary_size_mtrs-N">North
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col-lg-3 col-sm-12">
+                            <div data-mdb-input-init class="form-outline">
+
+
+                              <input type="text" class="form-control form-control-sm" id="boundary_size_mtrs-S"
+                                name="boundary_size_mtrs-S" placeholder="South side">
+                              <label class="form-label" for="boundary_size_mtrs-S">South
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_availability_of_mot"
+                          name="is_availability_of_mot">
+                        <label class="form-check-label" for="is_availability_of_mot">Is Availability of
+                          MOT</label>
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_machine_shed" name="is_machine_shed">
+                        <label class="form-check-label" for="is_machine_shed">Is Machine Shed</label>
+                      </div>
+
+                      <div class="form-checkmb-2">
+                        <input class="form-check-input" type="checkbox" id="is_soil_shed" name="is_soil_shed">
+                        <label class="form-check-label" for="is_soil_shed">Is Soil Shed</label>
+                      </div>
+
+                      <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="is_pitch_or_run_up_covers"
+                          name="is_pitch_or_run_up_covers">
+                        <label class="form-check-label" for="is_pitch_or_run_up_covers">Is Pitch or Run Up
+                          Covers</label>
+                      </div>
+
+                      <div class="mb-2">
+                        <div data-mdb-input-init class="form-outline">
+                          <input type="text" class="form-control form-control-sm" id="size_of_covers_in_mtrs"
+                            name="size_of_covers_in_mtrs">
+                          <label for="size_of_covers_in_mtrs" class="form-label">Size of Covers (Meters):</label>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+</body>
+
+</html>
